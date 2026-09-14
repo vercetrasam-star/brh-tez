@@ -1,0 +1,28 @@
+@font-face {
+    font-family: 'Satoshi';
+    src: url('../fonts/ad67f640d4bb0eae-s.p.woff2') format('woff2');
+    font-display: swap;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Satoshi';
+    src: url('../fonts/68ed26f9d69f132e-s.p.woff2') format('woff2');
+    font-display: swap;
+    font-weight: 500;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Satoshi';
+    src: url('../fonts/eaa0d296b10c69c0-s.p.woff2') format('woff2');
+    font-display: swap;
+    font-weight: 600;
+    font-style: normal;
+  }
+  
+  *,
+  body {
+    font-family: 'Satoshi', Arial, sans-serif;
+  }
