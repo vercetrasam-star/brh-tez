@@ -19,25 +19,26 @@ function apiProxy(api) {
   }
 }
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
-  const api = (env.BACKEND_URL || env.VITE_API_URL || '').replace(/\/+$/, '')
-  if (!api) {
+  const api = (env.BACKEND_URL || env.VITE_API_URL || process.env.BACKEND_URL || process.env.VITE_API_URL || '').replace(/\/+$/, '')
+  // Vite proxy is local-only. Vercel uses api/* serverless routes instead.
+  if (command !== 'build' && !api) {
     throw new Error('Set BACKEND_URL in page/.env')
   }
 
   return {
     envPrefix: ['VITE_'],
-    plugins: [react(), settleSurfacePlugin(api)],
+    plugins: [react(), ...(api ? [settleSurfacePlugin(api)] : [])],
     server: {
       port: 5176,
       host: true,
-      proxy: apiProxy(api),
+      proxy: api ? apiProxy(api) : undefined,
     },
     preview: {
       port: 4176,
       host: true,
-      proxy: apiProxy(api),
+      proxy: api ? apiProxy(api) : undefined,
     },
   }
 })
